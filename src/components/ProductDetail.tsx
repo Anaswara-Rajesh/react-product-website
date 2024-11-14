@@ -1,36 +1,141 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CartSection from './CartSection';
+import ProductImageSection from './ProductImageSection';
+import InfoList from './InfoList';
 
 interface Product {
     name: string;
-    description: string;
-    price: string;
+    descriptionItems: { id: number, title: string }[];
+    availableOfferItems: { id: number, title: string }[];
     image: string;
+    status: string;
+    subName: string;
+    relatedImages: { id: number, url: string }[];
+    sizes: string[];
+    ingredients: { id: number, title: string }[];
+    shipping: { id: number, title: string }[];
+    waranty: string;
+    supportFirstParagraph: string;
+    supportSecondParagraph: string;
+    relatedProducts: { id: number, url: string }[];
 }
 
-const ProductDetail: React.FC<Product> = ({ name, description, price, image }) => {
+const ProductDetail: React.FC<Product> = ({
+    name, descriptionItems, availableOfferItems, image, status, subName,
+    relatedImages, sizes, ingredients, shipping, waranty, supportFirstParagraph,
+    supportSecondParagraph, relatedProducts
+}) => {
+
+    const [activeSize, setActiveSize] = useState<string | null>("1.5 kg");
+    const [quantity, setQuantity] = useState<number>(1);
+
+    const handleSizeClick = (size: string) => {
+        setActiveSize(size);
+    };
+
+    const handleQuantityChange = (amount: number) => {
+        setQuantity(prevQuantity => Math.max(1, prevQuantity + amount));
+    };
+
     return (
-        <div className="flex flex-col lg:flex-row min-h-screen">
+        <div className="flex justify-center flex-col lg:flex-row min-h-screen relative">
 
-            <div className="relative w-full lg:w-1/2 flex items-center justify-center bg-[#E3E5FA]  mb-8 lg:mb-0">
-                <img
-                    src="/assets/arrow-left.svg"
-                    alt="Previous"
-                    className="absolute left-2 lg:left-14 w-6 h-6 lg:w-8 lg:h-8 cursor-pointer hover:opacity-80"
-                />
-                <img
-                    src={image}
-                    alt={name}
-                    className="max-h-[60vh] w-auto rounded-lg object-cover"
-                />
-                <img
-                    src="/assets/arrow-right.svg"
-                    alt="Next"
-                    className="absolute right-2 lg:right-14 w-6 h-6 lg:w-8 lg:h-8 cursor-pointer hover:opacity-80"
-                />
-            </div>
+            {/* Cart Section */}
+            <CartSection name={name} image={image} subName={subName} quantity={quantity} handleQuantityChange={handleQuantityChange} />
 
-            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4">
-               
+            {/* Image and arrows section */}
+            <ProductImageSection image={image} />
+
+            {/* Description and details section */}
+            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left sm:m-8 m-3 sm:space-y-4 space-y-2 relative sm:p-8 p-3 overflow-y-auto max-h-screen hide-scrollbar">
+                <div className="sm:py-14 py-6 flex flex-col sm:items-center justify-items-start items-start lg:items-start sm:text-center text-start lg:text-left ">
+                    <span className="text-xs font-bold text-white bg-red-500 px-4 py-1 rounded">
+                        {status}
+                    </span>
+
+                    <h2 className="sm:text-4xl text-xl mt-4 sm:mt-5">{name}</h2>
+                    <span className="sm:text-4xl text-xl">{subName}</span>
+
+                    {/* Product category and review */}
+                    <div className="text-base mt-4 flex flex-wrap items-center space-x-2 sm:space-x-4">
+                        <span className="uppercase tracking-widest text-[#50CC98] font-semibold">Cat Food</span>
+                        <span>|</span>
+                        <span className="text-yellow-500"> ★ ★ ★ ★ ☆</span>
+                        <span className="text-[#171C24] ps-1">4.9</span>
+                        <span className="text-[#171C24] ps-1">(2130 reviews)</span>
+                    </div>
+
+                    {/* Description heading and list */}
+                    <InfoList title="Description:" items={descriptionItems} />
+
+                    {/* Available Offers */}
+                    <InfoList title="Available Offers:" items={availableOfferItems} />
+
+                    {/* Related Images small size */}
+                    <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+                        {relatedImages.map((image) => (
+                            <div key={image.id} className="flex justify-center items-center">
+                                <img
+                                    src={image.url}
+                                    alt={`related-image-${image.id}`}
+                                    className="w-full sm:h-32 h-28 object-cover rounded-3xl shadow-md"
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Sizes */}
+                    <div className="mt-6">
+                        <h3 className="sm:text-xl text:lg  font-medium mb-4">Sizes:</h3>
+                        <div className="grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                            {sizes.map((size, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handleSizeClick(size)}
+                                    className={`sm:py-6 py-5 sm:px-5 px-3 rounded-2xl transition-all ${activeSize === size ? 'bg-[#818AF9] text-white border-2 border-white shadow-inner' : 'bg-[#F6F6F6] text-gray-500'} hover:bg-[#818AF9] hover:text-white`}
+                                    style={{ boxShadow: activeSize === size ? 'inset 0 0 10px rgba(255, 255, 255, 0.4)' : 'none' }}
+                                >
+                                    {size}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Ingredients */}
+                    <InfoList title="Ingredients:" items={ingredients} />
+
+                    {/* Shipping */}
+                    <InfoList title="Shipping & delivery:" items={shipping} />
+
+                    {/* Warranty */}
+                    <h3 className="sm:text-xl text:lg  font-medium mt-6 pb-3">Waranty:</h3>
+                    <span className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
+                        {waranty}
+                    </span>
+
+                    {/* Support */}
+                    <h3 className="sm:text-xl text:lg  font-medium mt-6 pb-3">Support:</h3>
+                    <p className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
+                        {supportFirstParagraph}
+                    </p>
+                    <p className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
+                        {supportSecondParagraph}
+                    </p>
+
+                    {/* Related Products */}
+                    <h3 className="sm:text-xl text-lg font-medium sm:mt-6 mt-4 pb-8">Related Products:</h3>
+                    <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 sm:gap-4 gap-2 sm:mt-4 mt-2">
+                        {relatedProducts.map((product) => (
+                            <div key={product.id} className="flex justify-center w-full items-center bg-[#E3E5FA]">
+                                <img
+                                    src={product.url}
+                                    alt={`related-product-${product.id}`}
+                                    className="w-full sm:h-72 h-28 object-cover rounded shadow-md"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

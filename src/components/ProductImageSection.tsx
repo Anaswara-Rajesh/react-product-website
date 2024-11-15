@@ -6,7 +6,7 @@ interface ProductImageSectionProps {
 
 const ProductImageSection: React.FC<ProductImageSectionProps> = ({ image }) => {
     return (
-        <div className="w-full lg:w-1/2 flex items-center justify-center bg-[#E3E5FA] relative overflow-hidden">
+        <div className="w-full lg:w-1/2 flex items-center justify-center bg-[#E3E5FA] relative md:overflow-hidden overflow-y-auto">
             <img
                 src="/assets/arrow-left.svg"
                 alt="Previous"

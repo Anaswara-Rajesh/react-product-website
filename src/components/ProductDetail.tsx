@@ -48,6 +48,30 @@ const ProductDetail: React.FC<Product> = ({
 
             {/* Description and details section */}
             <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left sm:m-8 m-3 sm:space-y-4 space-y-2 relative sm:p-8 p-3 overflow-y-auto  max-h-screen hide-scrollbar">
+
+                {/* Top Button Section */}
+                <div className="absolute sm:top-4  top-[-84px] right-4 flex items-center space-x-2">
+                    <button className="flex items-center justify-center bg-white p-2 rounded-full shadow-lg transition-shadow hover:shadow-xl">
+                        <div className="relative">
+                            <img
+                                src="/assets/user.svg"
+                                alt="Person"
+                                className="w-10 h-6 mr-1 transition-transform duration-200 hover:scale-110 hover:opacity-80"
+                            />
+                        </div>
+                        <div className="relative">
+                            <img
+                                src="/assets/cart.svg"
+                                alt="Cart"
+                                className="w-10 h-6 transition-transform duration-200 hover:scale-110 hover:opacity-80"
+                            />
+                            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                                2
+                            </span>
+                        </div>
+                    </button>
+                </div>
+
                 <div className="sm:py-14 py-6 flex flex-col sm:items-center justify-items-start items-start lg:items-start sm:text-center text-start lg:text-left ">
                     <span className="text-xs font-bold text-white bg-red-500 px-4 py-1 rounded flex flex-col justify-start text-left">
                         {status}

@@ -47,17 +47,20 @@ const ProductDetail: React.FC<Product> = ({
             <ProductImageSection image={image} />
 
             {/* Description and details section */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left sm:m-8 m-3 sm:space-y-4 space-y-2 relative sm:p-8 p-3 overflow-y-auto max-h-screen hide-scrollbar">
+            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left sm:m-8 m-3 sm:space-y-4 space-y-2 relative sm:p-8 p-3 sm:overflow-y-auto overflow-hidden max-h-screen hide-scrollbar">
                 <div className="sm:py-14 py-6 flex flex-col sm:items-center justify-items-start items-start lg:items-start sm:text-center text-start lg:text-left ">
-                    <span className="text-xs font-bold text-white bg-red-500 px-4 py-1 rounded">
+                    <span className="text-xs font-bold text-white bg-red-500 px-4 py-1 rounded flex flex-col justify-start text-left">
                         {status}
                     </span>
+                    <div className='flex flex-col justify-start text-left'>
 
-                    <h2 className="sm:text-4xl text-xl mt-4 sm:mt-5">{name}</h2>
-                    <span className="sm:text-4xl text-xl">{subName}</span>
+
+                        <h2 className="sm:text-4xl text-xl mt-4 sm:mt-5">{name}</h2>
+                        <span className="sm:text-4xl text-xl">{subName}</span>
+                    </div>
 
                     {/* Product category and review */}
-                    <div className="text-base mt-4 flex flex-wrap items-center space-x-2 sm:space-x-4">
+                    <div className="text-base mt-4 flex flex-wrap items-start justify-start space-x-2 sm:space-x-4">
                         <span className="uppercase tracking-widest text-[#50CC98] font-semibold">Cat Food</span>
                         <span>|</span>
                         <span className="text-yellow-500"> ★ ★ ★ ★ ☆</span>
@@ -72,7 +75,7 @@ const ProductDetail: React.FC<Product> = ({
                     <InfoList title="Available Offers:" items={availableOfferItems} />
 
                     {/* Related Images small size */}
-                    <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+                    <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4 text-left sm:text-left lg:text-left">
                         {relatedImages.map((image) => (
                             <div key={image.id} className="flex justify-center items-center">
                                 <img
@@ -85,8 +88,8 @@ const ProductDetail: React.FC<Product> = ({
                     </div>
 
                     {/* Sizes */}
-                    <div className="mt-6">
-                        <h3 className="sm:text-xl text:lg  font-medium mb-4">Sizes:</h3>
+                    <div className="mt-6 flex flex-col items-start text-left sm:text-left lg:text-left sm:items-start lg:items-start">
+                        <h3 className="sm:text-xl text-lg font-medium mb-4">Sizes:</h3>
                         <div className="grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                             {sizes.map((size, index) => (
                                 <button
@@ -102,38 +105,46 @@ const ProductDetail: React.FC<Product> = ({
                     </div>
 
                     {/* Ingredients */}
-                    <InfoList title="Ingredients:" items={ingredients} />
+                    <div className="text-left sm:text-left lg:text-left items-start sm:items-start lg:items-start">
+                        <InfoList title="Ingredients:" items={ingredients} />
+                    </div>
 
                     {/* Shipping */}
                     <InfoList title="Shipping & delivery:" items={shipping} />
 
                     {/* Warranty */}
-                    <h3 className="sm:text-xl text:lg  font-medium mt-6 pb-3">Waranty:</h3>
-                    <span className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
-                        {waranty}
-                    </span>
+                    <div className='flex flex-col justify-start text-left'>
+                        <h3 className="sm:text-xl text:lg  font-medium mt-6 pb-3">Waranty:</h3>
+                        <span className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
+                            {waranty}
+                        </span>
+                    </div>
 
                     {/* Support */}
-                    <h3 className="sm:text-xl text:lg  font-medium mt-6 pb-3">Support:</h3>
-                    <p className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
-                        {supportFirstParagraph}
-                    </p>
-                    <p className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
-                        {supportSecondParagraph}
-                    </p>
+                    <div className='flex flex-col justify-start text-left'>
+                        <h3 className="sm:text-xl text:lg  font-medium mt-6 pb-3">Support:</h3>
+                        <p className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
+                            {supportFirstParagraph}
+                        </p>
+                        <p className='text-black sm:text-lg text-base font-extralight pt-2 space-y-2'>
+                            {supportSecondParagraph}
+                        </p>
+                    </div>
 
                     {/* Related Products */}
-                    <h3 className="sm:text-xl text-lg font-medium sm:mt-6 mt-4 pb-8">Related Products:</h3>
-                    <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 sm:gap-4 gap-2 sm:mt-4 mt-2">
-                        {relatedProducts.map((product) => (
-                            <div key={product.id} className="flex justify-center w-full items-center bg-[#E3E5FA]">
-                                <img
-                                    src={product.url}
-                                    alt={`related-product-${product.id}`}
-                                    className="w-full sm:h-72 h-28 object-cover rounded shadow-md"
-                                />
-                            </div>
-                        ))}
+                    <div className='flex flex-col justify-start text-left'>
+                        <h3 className="sm:text-xl text-lg font-medium sm:mt-6 mt-4 pb-8">Related Products:</h3>
+                        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 sm:gap-4 gap-2 sm:mt-4 mt-2">
+                            {relatedProducts.map((product) => (
+                                <div key={product.id} className="flex justify-center w-full items-center bg-[#E3E5FA]">
+                                    <img
+                                        src={product.url}
+                                        alt={`related-product-${product.id}`}
+                                        className="w-full sm:h-72 h-28 object-cover rounded shadow-md"
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

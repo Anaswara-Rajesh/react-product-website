@@ -7,7 +7,7 @@ interface InfoListProps {
 
 const InfoList: React.FC<InfoListProps> = ({ title, items }) => {
     return (
-        <div className="mt-6">
+        <div className="mt-6 flex flex-col justify-start text-left">
             <h3 className="sm:text-xl text:lg font-medium">{title}</h3>
             <ul className="list-none sm:text-lg text-base font-extralight text-black mt-2 space-y-2">
                 {items.map(item => (

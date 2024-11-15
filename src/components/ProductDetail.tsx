@@ -47,7 +47,7 @@ const ProductDetail: React.FC<Product> = ({
             <ProductImageSection image={image} />
 
             {/* Description and details section */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left sm:m-8 m-3 sm:space-y-4 space-y-2 relative sm:p-8 p-3 sm:overflow-y-auto overflow-hidden max-h-screen hide-scrollbar">
+            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left sm:m-8 m-3 sm:space-y-4 space-y-2 relative sm:p-8 p-3 md:overflow-y-auto overflow-hidden max-h-screen hide-scrollbar">
                 <div className="sm:py-14 py-6 flex flex-col sm:items-center justify-items-start items-start lg:items-start sm:text-center text-start lg:text-left ">
                     <span className="text-xs font-bold text-white bg-red-500 px-4 py-1 rounded flex flex-col justify-start text-left">
                         {status}
